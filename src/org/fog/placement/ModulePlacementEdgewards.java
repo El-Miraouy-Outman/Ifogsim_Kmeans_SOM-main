@@ -178,7 +178,6 @@ public class ModulePlacementEdgewards extends ModulePlacement{
 					}
 				}
 			}
-			
 			/*
 			 * Getting the list of modules ready to be placed on current device on path
 			 */

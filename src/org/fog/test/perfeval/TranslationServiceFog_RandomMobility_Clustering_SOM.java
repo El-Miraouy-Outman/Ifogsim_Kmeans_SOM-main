@@ -55,7 +55,7 @@ public class TranslationServiceFog_RandomMobility_Clustering_SOM {
 
         Log.printLine("Starting Translation Service...");
         
-        Log.printLine(sensors.size());
+        Log.printLine( "sensors size : "+sensors.size());
         
         try {
             Log.disable();
@@ -85,7 +85,6 @@ public class TranslationServiceFog_RandomMobility_Clustering_SOM {
 
             createMobileUser(broker.getId(), appId, datasetReference);
             createFogDevices(broker.getId(), appId);
-
 
             //
 
@@ -118,7 +117,6 @@ public class TranslationServiceFog_RandomMobility_Clustering_SOM {
             Log.printLine("Unwanted errors happen");
         }
     }
-
     private static void createRandomMobilityDatasets(int mobilityModel, String datasetReference, boolean renewDataset) throws IOException, ParseException {
         RandomMobilityGenerator randMobilityGenerator = new RandomMobilityGenerator();
         for (int i = 0; i < numberOfMobileUser; i++) {

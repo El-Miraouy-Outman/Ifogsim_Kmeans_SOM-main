@@ -131,6 +131,7 @@ public class MobilityController extends SimEntity{
 
 	@Override
 	public void processEvent(SimEvent ev) {
+		System.out.println("****** execution of Methode 'processEvent' *******");
 		switch(ev.getTag()){
 		case FogEvents.APP_SUBMIT:
 			processAppSubmit(ev);
@@ -191,8 +192,7 @@ public class MobilityController extends SimEntity{
 			List<Integer>newParentPath = getPathsToCloud(newParent.getId());
 			List<Integer>prevParentPath = getPathsToCloud(prevParent.getId());
 			int commonAncestor = determineAncestor(newParentPath,prevParentPath);
-			
-			
+
 			fogDevice.setParentId(newParent.getId());
 			System.out.println("Child "+fogDevice.getName()+"\t----->\tParent "+newParent.getName());
 			newParent.getChildToLatencyMap().put(fogDevice.getId(), fogDevice.getUplinkLatency());

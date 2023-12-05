@@ -60,7 +60,8 @@ public class DataParser {
 
     public void parseUserData(Map<Integer, Integer> userMobilityPattern, String datasetReference) throws IOException {
         // TODO Auto-generated method stub
-
+        System.out.println("############################################################################# ");
+        System.out.println(userMobilityPattern);
         for (int userID : userMobilityPattern.keySet()) {
 
             Map<Double, Location> tempUserLocationInfo = new HashMap<Double, Location>();

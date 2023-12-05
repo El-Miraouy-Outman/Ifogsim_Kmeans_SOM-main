@@ -31,8 +31,10 @@ public class Clustering_SOM {
 
     	for(int i =0 ;i<=117; i++ ) {
     		 int id=i+38 ;
-    		  double fogNodePositionX = locatorTemp.dataObject.resourceLocationData.get(locatorTemp.instanceToDataId.get(id)).latitude;
-    	        double fogNodePositionY = locatorTemp.dataObject.resourceLocationData.get(locatorTemp.instanceToDataId.get(id)).longitude;
+    		  double fogNodePositionX =
+                      locatorTemp.dataObject.resourceLocationData.get(locatorTemp.instanceToDataId.get(id)).latitude;
+    	        double fogNodePositionY =
+                        locatorTemp.dataObject.resourceLocationData.get(locatorTemp.instanceToDataId.get(id)).longitude;
     	      data[i][0]=fogNodePositionX;
     	      data[i][1]=fogNodePositionY;
     	}

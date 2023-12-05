@@ -40,15 +40,20 @@ import java.util.*;
  * @author Mohammad Goudarzi
  */
 public class TranslationServiceFog_Clustering {
+    // contenu de cette liste cloud  and fog and proxy and users .
     static List<FogDevice> fogDevices = new ArrayList<FogDevice>();
     static List<Sensor> sensors = new ArrayList<Sensor>();
     static List<Actuator> actuators = new ArrayList<Actuator>();
+    // position of users
     static Map<Integer, Integer> userMobilityPattern = new HashMap<Integer, Integer>();
+    // leur role c'est la lecture du fichier excel
     static LocationHandler locator;
 
     static boolean CLOUD = false;
-
+     // variable pour trichzer
     static double SENSOR_TRANSMISSION_TIME = 10;
+    // number of user
+    //
     static int numberOfMobileUser = 2;
 
     // if random mobility generator for users is True, new random dataset will be created for each user
@@ -93,7 +98,8 @@ public class TranslationServiceFog_Clustering {
             //
 
             ModuleMapping moduleMapping = ModuleMapping.createModuleMapping(); // initializing a module mapping
-
+            // les travaux de notre systeme
+            // stocage
             moduleMapping.addModuleToDevice("storageModule", "cloud");
 
             ClusteringController controller;

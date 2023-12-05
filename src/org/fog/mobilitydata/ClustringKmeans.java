@@ -32,35 +32,28 @@ public class ClustringKmeans {
     	Map<Integer, Location> points=new HashMap<>();
     	Map<Integer, Location> centroids=new HashMap<>();
     	Map<Integer, Integer> clusters=new HashMap<>();
+		// changement des borne de loop depond de nombre de user ..?
+		// som aussi
     	for(int i =38 ;i<=157; i++ ) {
     		 int id=i ;
     		  double fogNodePositionX = locatorTemp.dataObject.resourceLocationData.get(locatorTemp.instanceToDataId.get(id)).latitude;
     	        double fogNodePositionY = locatorTemp.dataObject.resourceLocationData.get(locatorTemp.instanceToDataId.get(id)).longitude;
     	        Location L1 = new Location(fogNodePositionX, fogNodePositionY, 0);
-    	   
     	        points.put(id, L1);
     	}
-    	
-    	
+
     	 // DETERMINER INTIAL CENTRES 
        Location  x1 = points.get(19);
    	
   		int r =70;
-  		
   		for (int i = 0; i < k; i++) {
-  			
   			x1=points.get(r++);
-  			
   			centroids.put(i, x1);
-  			
   		}
   		
   		// intial iteration 
   		clusters = kmeans(points, centroids, k);
-  		
-  		
   		Location db= new Location(0, 0, 0);
-  		
 		for (int i = 0; i < max_iteration; i++) {
 			for (int j = 0; j < k; j++) {
 				List<Location> list = new ArrayList<>();
@@ -111,8 +104,7 @@ public class ClustringKmeans {
         }
         System.out.println("The Fog Device: " + locatorTemp.instanceToDataId.get(fogId) + " with id: " + fogId + " and parent id: " + parentId +
                 " has these cluster members: " + ((FogDevice) CloudSim.getEntity(fogId)).getClusterMembers()); 
-        
-        
+
         return;
     }
    
