@@ -44,7 +44,8 @@ public class TranslationServiceFog_RandomMobility_Clustering_kmeans {
     
     static boolean CLOUD = false;
     static double SENSOR_TRANSMISSION_TIME = 5.0;
-    static int numberOfMobileUser = 8;
+    // pour chaque user ajouter 3 dans les bourne du boucle dans methode de cluster
+    static int numberOfMobileUser = 6;
 
     // if random mobility generator for users is True, new random dataset will be created for each user
     static boolean randomMobility_generator = false; // To use random datasets
@@ -85,7 +86,6 @@ public class TranslationServiceFog_RandomMobility_Clustering_kmeans {
 
             createMobileUser(broker.getId(), appId, datasetReference);
             createFogDevices(broker.getId(), appId);
-
 
             //
 
@@ -163,29 +163,44 @@ public class TranslationServiceFog_RandomMobility_Clustering_kmeans {
 
 
         if (locator.getLevelWiseResources(locator.getLevelID("Cloud")).size() == 1) {
-
-            FogDevice cloud = createFogDevice("cloud", 44800, 40000, 100, 10000, 0.01, 16 * 103, 16 * 83.25); // creates the fog device Cloud at the apex of the hierarchy with level=0
+            // creates the fog device Cloud at the apex of the hierarchy with level=0
+            FogDevice cloud = createFogDevice("cloud", 44800, 40000, 100, 10000, 0.01, 16 * 103, 16 * 83.25);
             cloud.setParentId(References.NOT_SET);
+           // System.out.println("*-*-*-*--*-**-*-*-*-*-*-*-*-*-*-**-*-*-*-*-*-*-*-*-*-* cloud"+ cloud.getId());
+           // System.out.println("*-*-*-*--*-**-*-*-*-*-*-*-*-*-*-**-*-*-*-*-*-*-*-*-*-* cloud"+ locator.getLevelWiseResources(locator.getLevelID("Cloud")).get(0));
+
+
             locator.linkDataWithInstance(cloud.getId(), locator.getLevelWiseResources(locator.getLevelID("Cloud")).get(0));
             cloud.setLevel(0);
             fogDevices.add(cloud);
 
             for (int i = 0; i < locator.getLevelWiseResources(locator.getLevelID("Proxy")).size(); i++) {
+                // creates the fog device Proxy Server (level=1)
+                FogDevice proxy = createFogDevice("proxy-server_" + i, 2800, 4000, 10000, 10000, 0.0, 107.339, 83.4333);
+                //System.out.println("boucle");
+                //System.out.println("*-*-*-*--*-**-*-*-*-*-*-*-*-*-*-**-*-*-*-*-*-*-*-*-*-*"+ proxy.getId());
+               // System.out.println("*-*-*-*--*-**-*-*-*-*-*-*-*-*-*-**-*-*-*-*-*-*-*-*-*-*"+ locator.getLevelWiseResources(locator.getLevelID("Proxy")).get(i));
 
-                FogDevice proxy = createFogDevice("proxy-server_" + i, 2800, 4000, 10000, 10000, 0.0, 107.339, 83.4333); // creates the fog device Proxy Server (level=1)
                 locator.linkDataWithInstance(proxy.getId(), locator.getLevelWiseResources(locator.getLevelID("Proxy")).get(i));
-                proxy.setParentId(cloud.getId()); // setting Cloud as parent of the Proxy Server
-                proxy.setUplinkLatency(100); // latency of connection from Proxy Server to the Cloud is 100 ms
+                // setting Cloud as parent of the Proxy Server
+                proxy.setParentId(cloud.getId());
+                // latency of connection from Proxy Server to the Cloud is 100 ms
+                proxy.setUplinkLatency(100);
                 proxy.setLevel(1);
                 fogDevices.add(proxy);
 
             }
-
+            System.out.println("boucle gateway ");
             for (int i = 0; i < locator.getLevelWiseResources(locator.getLevelID("Gateway")).size(); i++) {
 
                 FogDevice gateway = createFogDevice("gateway_" + i, 2800, 4000, 10000, 10000, 0.0, 107.339, 83.4333);
+                System.out.println("*-*-*-*--*-**-*-*-*-*-*-*-*-*-*-**-*-*-*-*-*-*-*-*-*-*"+ gateway.getId());
+                System.out.println("*-*-*-*--*-**-*-*-*-*-*-*-*-*-*-**-*-*-*-*-*-*-*-*-*-*"+ locator.getLevelWiseResources(locator.getLevelID("Gateway")).get(i));
+
+
                 locator.linkDataWithInstance(gateway.getId(), locator.getLevelWiseResources(locator.getLevelID("Gateway")).get(i));
                 gateway.setParentId(locator.determineParent(gateway.getId(), References.SETUP_TIME));
+                // latency of connection from gateway  to the proxy is 4 ms
                 gateway.setUplinkLatency(4);
                 gateway.setLevel(2);
                 fogDevices.add(gateway);
@@ -307,6 +322,7 @@ public class TranslationServiceFog_RandomMobility_Clustering_kmeans {
             application.addAppEdge("M-SENSOR", "clientModule", 2000, 500, "M-SENSOR", Tuple.UP, AppEdge.SENSOR); // adding edge from EEG (sensor) to Client module carrying tuples of type EEG
         else
             application.addAppEdge("M-SENSOR", "clientModule", 3000, 500, "M-SENSOR", Tuple.UP, AppEdge.SENSOR);
+
         application.addAppEdge("clientModule", "processingModule", 3500, 500, "RAW_DATA", Tuple.UP, AppEdge.MODULE); // adding edge from Client to Concentration Calculator module carrying tuples of type _SENSOR
         application.addAppEdge("processingModule", "storageModule", 1000, 1000, "PROCESSED_DATA", Tuple.UP, AppEdge.MODULE); // adding periodic edge (period=1000ms) from Concentration Calculator to Connector module carrying tuples of type PLAYER_GAME_STATE
         application.addAppEdge("processingModule", "clientModule", 14, 500, "ACTION_COMMAND", Tuple.DOWN, AppEdge.MODULE);  // adding edge from Concentration Calculator to Client module carrying tuples of type CONCENTRATION

@@ -206,7 +206,7 @@ public class ClusteringController extends SimEntity {
         FogDevice fogDevice = (FogDevice) ev.getData();
         FogDevice prevParent = getFogDeviceById(parentReference.get(fogDevice.getId()));
         FogDevice newParent = getFogDeviceById(locator.determineParent(fogDevice.getId(), CloudSim.clock()));
-        System.out.println(CloudSim.clock() + " Starting Mobility Management for " + fogDevice.getName());
+        System.out.println(CloudSim.clock() + "  ****** method ! processMobility**** Starting Mobility Management for " + fogDevice.getName());
         parentReference.put(fogDevice.getId(), newParent.getId());
         List<String> migratingModules = new ArrayList<String>();
         if (prevParent.getId() != newParent.getId()) {
@@ -224,10 +224,14 @@ public class ClusteringController extends SimEntity {
             newParent.getChildToLatencyMap().put(fogDevice.getId(), fogDevice.getUplinkLatency());
             newParent.addChild(fogDevice.getId());
             prevParent.removeChild(fogDevice.getId());
+            System.out.println("---------------");
+            System.out.println( fogDevice.getActiveApplications());
             for (String applicationName : fogDevice.getActiveApplications()) {
                 migratingModules = getAppModulePlacementPolicy().get(applicationName).getModulesOnPath().get(fogDevice.getId()).get(prevParent.getId());
                 getAppModulePlacementPolicy().get(applicationName).getModulesOnPath().get(fogDevice.getId()).remove(prevParent.getId());
                 getAppModulePlacementPolicy().get(applicationName).getModulesOnPath().get(fogDevice.getId()).put(newParent.getId(), migratingModules);
+                System.out.println("-----------------------");
+                System.out.println(migratingModules);
                 for (String moduleName : migratingModules) {
 
                     double upDelay;
@@ -254,7 +258,7 @@ public class ClusteringController extends SimEntity {
 
                     send(prevParent.getId(), upDelay, FogEvents.MODULE_SEND, jsonSend);
                     send(newParent.getId(), downDelay, FogEvents.MODULE_RECEIVE, jsonReceive);
-                    System.out.println("Migrating " + moduleName + " from " + prevParent.getName() + " to " + newParent.getName());
+                    System.out.println("------- Migrating " + moduleName + " from " + prevParent.getName() + " to " + newParent.getName());
                 }
             }
 

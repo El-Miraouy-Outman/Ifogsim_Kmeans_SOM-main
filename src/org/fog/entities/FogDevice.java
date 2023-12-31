@@ -1143,8 +1143,8 @@ public class FogDevice extends PowerDatacenter {
         ClustringKmeans clustringKmeans=new ClustringKmeans();
         Clustering_SOM som=new Clustering_SOM();
         // cms.createClusterMembers(this.getParentId(), this.getId(), objectLocator);
-       //clustringKmeans.createClusterMembers(this.getParentId(), this.getId(), objectLocator);
-        som.createClusterMembers(this.getParentId(), this.getId(), objectLocator);
+        //clustringKmeans.createClusterMembers(this.getParentId(), this.getId(), objectLocator);
+       som.createClusterMembers(this.getParentId(), this.getId(), objectLocator);
 
 
     }

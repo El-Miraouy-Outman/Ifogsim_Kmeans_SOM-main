@@ -24,13 +24,16 @@ public class Clustering_SOM {
          int numIterations = 1000;
          double learningRate = 0.1;
          double decayRate = 0.5;
+         // pas =3 pour chaque user(+1 user = +3 dans les bourne du boucle )
+         int debut=32;
     	LocationHandler locatorTemp = new LocationHandler();
     	   locatorTemp = (LocationHandler) locatorObject.get("locationsInfo");
     	   double[][] data = new double[200][2];
     	   int[] clusters = new int[data.length];
+         // changer borne final avec 3 pour chaqiue user
+    	for(int i =0 ;i<=111; i++ ) {
 
-    	for(int i =0 ;i<=117; i++ ) {
-    		 int id=i+38 ;
+    		 int id=i+debut ;
     		  double fogNodePositionX =
                       locatorTemp.dataObject.resourceLocationData.get(locatorTemp.instanceToDataId.get(id)).latitude;
     	        double fogNodePositionY =
@@ -48,12 +51,12 @@ public class Clustering_SOM {
           
           List<Integer> clusterMemberList = new ArrayList<>();
           int fogId = nodeId;
- 		   int groupe=clusters[fogId-38] ;
+ 		   int groupe=clusters[fogId-debut] ;
  		for(int j=0 ;j<clusters.length;j++) {
  			
  	    	int groupeFog=clusters[j];
  	    	
- 	    	if(groupe==groupeFog)  clusterMemberList.add(j+38); 
+ 	    	if(groupe==groupeFog)  clusterMemberList.add(j+debut);
  	    	
  	    	}
 	

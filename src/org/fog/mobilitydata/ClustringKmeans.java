@@ -34,7 +34,9 @@ public class ClustringKmeans {
     	Map<Integer, Integer> clusters=new HashMap<>();
 		// changement des borne de loop depond de nombre de user ..?
 		// som aussi
-    	for(int i =38 ;i<=157; i++ ) {
+		// les boure se change par pas =3 pour chaque user
+
+		for(int i =38 ;i<=157; i++ ) {
     		 int id=i ;
     		  double fogNodePositionX = locatorTemp.dataObject.resourceLocationData.get(locatorTemp.instanceToDataId.get(id)).latitude;
     	        double fogNodePositionY = locatorTemp.dataObject.resourceLocationData.get(locatorTemp.instanceToDataId.get(id)).longitude;

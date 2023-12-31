@@ -44,6 +44,7 @@ public class TranslationServiceFog_RandomMobility_Clustering_SOM {
     
     static boolean CLOUD = false;
     static double SENSOR_TRANSMISSION_TIME = 15.0;
+    // pour chaque user pas=3 dans les bournes
     static int numberOfMobileUser = 8;
 
     // if random mobility generator for users is True, new random dataset will be created for each user
@@ -54,7 +55,6 @@ public class TranslationServiceFog_RandomMobility_Clustering_SOM {
     public static void main(String[] args) {
 
         Log.printLine("Starting Translation Service...");
-        
         Log.printLine( "sensors size : "+sensors.size());
         
         try {
